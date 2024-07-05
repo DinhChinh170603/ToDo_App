@@ -1,0 +1,148 @@
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+.task-input,
+.todo-item-text {
+  width: 100%;
+  height: 58px;
+  border-bottom: 1px solid white;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.todo-item-text .item-opt i {
+  font-size: 16px;
+  display: none;
+  color: transparent;
+  border-radius: 5px;
+}
+
+.todo-item-text:hover .item-opt i {
+  display: flex;
+  color: #ff7066;
+  height: 24px;
+  width: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+.todo-item-text:hover .item-opt i:hover {
+  background-color: #b56a65;
+}
+
+.todo-item-text.new-item {
+  height: 40px;
+}
+
+.todo-item-text input {
+  color: #ffffff;
+  border: none;
+  background: unset;
+}
+
+.todo-item-text input:focus-visible {
+  outline: none;
+}
+
+.todo-item-text input::placeholder {
+  color: #ffffff;
+}
+
+.checkbox-item-is-completed {
+  width: 18px;
+  height: 18px;
+  border: 1px solid #a9a9a9;
+  border-radius: 50%;
+  box-sizing: border-box;
+  margin: 8px 6px 0 -1px;
+  position: relative;
+  z-index: 1;
+}
+
+span.done-item {
+  font-size: 12px;
+  color: #ffffff;
+  position: absolute;
+  left: 3px;
+  z-index: 999;
+}
+
+span.not-done-item {
+  width: 24px;
+  height: 24px;
+  display: block;
+  color: transparent;
+}
+
+span.not-done-item:hover {
+  font-size: 12px;
+  color: #ffffff;
+  position: absolute;
+  left: 3px;
+  z-index: 999;
+}
+
+.is-completed {
+  display: flex;
+  gap: 5px;
+}
+
+.item-opt {
+  padding: 8px 0;
+  display: flex;
+}
+
+.item-opt i {
+  color: #ff7066;
+}
+
+.item-opt p {
+  display: flex;
+  justify-content: center;
+  width: 24px;
+}
+
+.checkbox-item-is-completed.new-item {
+  width: 24px !important;
+  height: 24px !important;
+  border: unset;
+}
+
+.checkbox-item-is-completed.new-item i {
+  color: #ff7066;
+}
+
+.item-content {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+}
+
+.item-content p {
+  padding: 1px 0;
+}
+
+.item-content p.item-name {
+  margin-bottom: 3px;
+}
+
+.item-date {
+  display: flex;
+  gap: 5px;
+}
+
+.item-date i {
+  font-size: 12px;
+  color: #ff7066;
+}
+
+.item-content p.item-text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ff7066;
+  margin-top: 1px;
+}
+
+.is-completed p {
+  color: #ffffff;
+}
