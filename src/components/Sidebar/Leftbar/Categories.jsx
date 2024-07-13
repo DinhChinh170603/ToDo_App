@@ -1,31 +1,23 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { CATE_ITEMS } from "../../../constant";
 
-import PropTypes from "prop-types";
-import { useContext, useMemo } from "react";
-import { AppContext } from "../../../context/AppProvider";
+import { useMemo } from "react";
+import { useAppContext } from "../../../context/AppProvider";
 
-const Categories = (props) => {
-  const { categoriesId, setCategoriesId } = useContext(AppContext);
+const Categories = () => {
+  const { taskList, categoriesId, setCategoriesId } = useAppContext();
 
   const countByCateType = useMemo(() => {
-    return props.taskList.reduce(
+    return taskList.reduce(
       (acc, cur) => {
-        let newAcc = { ...acc };
-        if (cur.inCategory === "personal") {
-          newAcc["personal"] += 1;
-        } else if (cur.inCategory === "company") {
-          newAcc["company"] += 1;
-        } else if (cur.inCategory === "travel") {
-          newAcc["travel"] += 1;
-        } else if (cur.inCategory === "idea") {
-          newAcc["idea"] += 1;
-        }
-        return newAcc;
+        return {
+          ...acc,
+          [cur.inCategory]: acc[cur.inCategory] + 1, 
+        };
       },
       { personal: 0, company: 0, travel: 0, idea: 0 }
     );
-  }, [props.taskList]);
+  }, [taskList]);
 
   return (
     <div className="cate-list">
@@ -53,10 +45,6 @@ const Categories = (props) => {
       )}
     </div>
   );
-};
-
-Categories.propTypes = {
-  taskList: PropTypes.array,
 };
 
 export default Categories;

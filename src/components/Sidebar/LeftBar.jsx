@@ -16,16 +16,13 @@ export const LeftBar = (props) => {
           onChange={(e) => props.setSearch(e.target.value)}
         />
       </div>
-      <Filter filter={props.filter} setFilter={props.setFilter} taskList={props.taskList}/>
-      <Categories taskList={props.taskList}/>
+      <Filter />
+      <Categories />
     </div>
   );
 };
 
 LeftBar.propTypes = {
-  filter: PropTypes.string,
-  setFilter: PropTypes.func,
-  taskList: PropTypes.array,
   search: PropTypes.string,
   setSearch: PropTypes.func,
 };

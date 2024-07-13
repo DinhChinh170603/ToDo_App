@@ -3,14 +3,15 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import PropTypes from "prop-types";
+import { useAppContext } from "../../context/AppProvider";
 
-const AddNewItem = ({ taskList, setTaskList }) => {
+const AddNewItem = () => {
+  const { taskList, setTaskList } = useAppContext();
   const newItem = useRef();
 
   const formatDate = (date) => {
     const day = String(date.getDate()).padStart(2, '0');
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decem"];
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const month = monthNames[date.getMonth()];
     return `${day} ${month}`;
   };
@@ -34,7 +35,6 @@ const AddNewItem = ({ taskList, setTaskList }) => {
     <div className="todo-item-text new-item">
       <div className="is-completed">
         <div
-          // checked={props.isCompleted}
           className="checkbox-item-is-completed new-item"
           onClick={(e) => {
             e.stopPropagation();
@@ -56,11 +56,6 @@ const AddNewItem = ({ taskList, setTaskList }) => {
       />
     </div>
   );
-};
-
-AddNewItem.propTypes = {
-  taskList: PropTypes.array,
-  setTaskList: PropTypes.func,
 };
 
 export default AddNewItem;

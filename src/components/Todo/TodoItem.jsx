@@ -4,12 +4,14 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import PropTypes from "prop-types";
 
 const TodoItem = (props) => {
+  const task = props.task;
+
   return (
     <li
-      key={props.id}
+      key={task.id}
       className="todo-item-text"
       onClick={() => {
-        props.handleSidebar(props.id);
+        props.handleSidebar(task.id);
       }}
     >
       <div className="is-completed">
@@ -17,30 +19,30 @@ const TodoItem = (props) => {
           className="checkbox-item-is-completed"
           onClick={(e) => {
             e.stopPropagation();
-            props.handleIsCompleted(props.id);
+            props.handleIsCompleted(task.id);
           }}
         >
-          {props.isCompleted && props.isCompleted ? (
+          {task.isCompleted ? (
             <span className="done-item">✔</span>
           ) : (
             <span className="not-done-item">✔</span>
           )}
         </div>
         <div className="item-content">
-          <p className="item-name">{props.name}</p>
+          <p className="item-name">{task.name}</p>
           {/* {props.isImportant && ( */}
             <div className="item-date">
               <span>
                 <i className="bi bi-calendar2-event"></i>
               </span>
-              <p className="item-text">{props.dateTime}</p>
+              <p className="item-text">{task.dateTime}</p>
             </div>
           {/* )} */}
         </div>
       </div>
 
       <div className="item-opt">
-        {props.isImportant && (
+        {task.isImportant && (
           <p>
             <i className="bi bi-star-fill"></i>
           </p>
@@ -49,7 +51,7 @@ const TodoItem = (props) => {
           className="bi bi-trash-fill"
           onClick={(e) => {
             e.stopPropagation();
-            props.handleIsDeleted(props.id);
+            props.handleIsDeleted(task.id);
           }}
         ></i>
       </div>
@@ -58,12 +60,7 @@ const TodoItem = (props) => {
 };
 
 TodoItem.propTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  dateTime: PropTypes.string,
-  isCompleted: PropTypes.bool,
-  isImportant: PropTypes.bool,
-  isDeleted: PropTypes.bool,
+  task: PropTypes.object,
   handleIsCompleted: PropTypes.func,
   handleIsDeleted: PropTypes.func,
   handleSidebar: PropTypes.func,

@@ -1,10 +1,12 @@
-import PropTypes from "prop-types";
 import { useMemo } from "react";
 import { FILTER_ITEMS } from "../../../constant";
+import { useAppContext } from "../../../context/AppProvider";
 
-const Filter = (props) => {
+const Filter = () => {
+  const { taskList, filter, setFilter } = useAppContext();
+
   const countByFilterType = useMemo(() => {
-    return props.taskList.reduce(
+    return taskList.reduce(
       (acc, cur) => {
         let newAcc = { ...acc };
         newAcc[
@@ -18,9 +20,9 @@ const Filter = (props) => {
         ] += 1;
         return newAcc;
       },
-      { all: props.taskList.length, important: 0, completed: 0, deleted: 0 }
+      { all: taskList.length, important: 0, completed: 0, deleted: 0 }
     );
-  }, [props.taskList]);
+  }, [taskList]);
 
   return (
     <div>
@@ -29,9 +31,9 @@ const Filter = (props) => {
           <div
             key={item.id}
             className={`type-filter ${
-              item.id === props.filter ? "active" : ""
+              item.id === filter ? "active" : ""
             }`}
-            onClick={() => props.setFilter(item.id)}
+            onClick={() => setFilter(item.id)}
           >
             <div className="name-filter">
               <div>
@@ -45,12 +47,6 @@ const Filter = (props) => {
       </div>
     </div>
   );
-};
-
-Filter.propTypes = {
-  taskList: PropTypes.array,
-  filter: PropTypes.string,
-  setFilter: PropTypes.func,
 };
 
 export default Filter;

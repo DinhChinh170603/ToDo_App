@@ -1,29 +1,20 @@
 import "./App.css";
 
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TodoItem from "./components/Todo/TodoItem";
 import AddNewItem from "./components/Todo/AddNewItem";
 import TaskDetail from "./components/Sidebar/TaskDetail";
 import { LeftBar } from "./components/Sidebar/LeftBar";
-import { AppContext } from "./context/AppProvider";
+import { useAppContext } from "./context/AppProvider";
 
 function App() {
-  const [taskList, setTaskList] = useState(() => {
-    const storedTaskList = JSON.parse(localStorage.getItem("taskList") ?? "[]");
-    if (storedTaskList?.length) {
-      return storedTaskList;
-    }
-    return [];
-  });
-
   const [activeTodoItem, setActiveTodoItem] = useState();
   const [showSidebar, setShowSidebar] = useState(false);
 
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
   const [categories, setCategories] = useState('None');
 
-  const { categoriesId } = useContext(AppContext);
+  const { taskList, setTaskList, categoriesId, filter } = useAppContext();
 
   useEffect(() => {
     localStorage.setItem("taskList", JSON.stringify(taskList));
@@ -70,8 +61,8 @@ function App() {
       if (!normalizeText(task.name).includes(normalizeText(search)))
         return false;
 
-      if (categoriesId) {
-        if (categoriesId !== task.inCategory) return false;
+      if (categoriesId && categoriesId !== task.inCategory) {
+        return false;
       }
 
       switch (filter) {
@@ -89,24 +80,11 @@ function App() {
     });
   }, [taskList, filter, search, categoriesId]);
 
-  // Sai, không nên tính toán filter ở đây, tính trực tiếp trong component
-  // const allTasksCount = taskList.length;
-  // const importantTasksCount = taskList.filter(
-  //   (task) => task.isImportant
-  // ).length;
-  // const completedTasksCount = taskList.filter(
-  //   (task) => task.isCompleted
-  // ).length;
-  // const deletedTasksCount = taskList.filter((task) => task.isDeleted).length;
-
   return (
     <div className="container">
       <LeftBar
-        filter={filter}
-        setFilter={setFilter}
         categories={categories}
         setCategories={setCategories}
-        taskList={taskList}
         search={search}
         setSearch={setSearch}
       />
@@ -117,12 +95,7 @@ function App() {
             {filteredTask.map((task) => (
               <TodoItem
                 key={task.id}
-                id={task.id}
-                name={task.name}
-                dateTime={task.dateTime}
-                isImportant={task.isImportant}
-                isCompleted={task.isCompleted}
-                isDeleted={task.isDeleted}
+                task={task}
                 inCategory={categories}
                 handleIsCompleted={() => handleIsCompleted(task.id)}
                 handleIsDeleted={() => handleIsDeleted(task.id)} 
