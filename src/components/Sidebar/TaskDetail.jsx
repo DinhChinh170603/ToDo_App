@@ -2,6 +2,7 @@ import "./sidebar.css";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import { CATE_ITEMS } from "../../constant";
+import { useAppContext } from "../../context/AppProvider";
 
 const TaskDetail = (props) => {
   const task = props.taskItem;
@@ -11,10 +12,12 @@ const TaskDetail = (props) => {
   const [isCompleted, setIsCompleted] = useState(task.isCompleted);
   const [category, setCategory] = useState(task.inCategory);
 
+  const { setShowSidebar } = useAppContext();
+
   const onSubmit = () => {
     const newTask = { ...task, name, isImportant, isCompleted, inCategory: category };
     props.onChangeTask(newTask);
-    props.setShowSidebar(false);
+    setShowSidebar(false);
   };
 
   return (
@@ -64,7 +67,7 @@ const TaskDetail = (props) => {
       </div>
       <div className="sb-footer">
         <button onClick={onSubmit}>Save</button>
-        <button onClick={() => props.setShowSidebar(false)}>Cancel</button>
+        <button onClick={() => setShowSidebar(false)}>Cancel</button>
       </div>
     </div>
   );
@@ -73,7 +76,6 @@ const TaskDetail = (props) => {
 TaskDetail.propTypes = {
   taskItem: PropTypes.object,
   onChangeTask: PropTypes.func,
-  setShowSidebar: PropTypes.func,
   inCategory: PropTypes.string
 };
 

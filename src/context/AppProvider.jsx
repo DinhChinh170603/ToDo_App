@@ -13,8 +13,9 @@ const AppProvider = ({ children }) => {
   });
 
   const [categoriesId, setCategoriesId] = useState();
-  const [categories, setCategories] = useState("None");
   const [filter, setFilter] = useState("all");
+
+  const [showSidebar, setShowSidebar] = useState(false);
 
   return (
     <AppContext.Provider
@@ -23,10 +24,10 @@ const AppProvider = ({ children }) => {
         setTaskList,
         categoriesId,
         setCategoriesId,
-        categories,
-        setCategories,
         filter,
         setFilter,
+        showSidebar,
+        setShowSidebar,
       }}
     >
       {children}

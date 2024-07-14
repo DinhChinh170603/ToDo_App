@@ -9,12 +9,12 @@ import { useAppContext } from "./context/AppProvider";
 
 function App() {
   const [activeTodoItem, setActiveTodoItem] = useState();
-  const [showSidebar, setShowSidebar] = useState(false);
+  // const [showSidebar, setShowSidebar] = useState(false);
 
   const [search, setSearch] = useState("");
   const [categories, setCategories] = useState('None');
 
-  const { taskList, setTaskList, categoriesId, filter } = useAppContext();
+  const { taskList, setTaskList, categoriesId, filter, showSidebar, setShowSidebar } = useAppContext();
 
   useEffect(() => {
     localStorage.setItem("taskList", JSON.stringify(taskList));
@@ -90,7 +90,7 @@ function App() {
       />
       <div className="main">
         <div className="main-content">
-          <AddNewItem taskList={taskList} setTaskList={setTaskList} />
+          <AddNewItem />
           <div className="task-list">
             {filteredTask.map((task) => (
               <TodoItem
@@ -108,7 +108,6 @@ function App() {
               key={activeTodoItem}
               taskItem={idTaskDetail}
               onChangeTask={onChangeTask}
-              setShowSidebar={setShowSidebar}
               inCategory={categories}
             />
           )}
